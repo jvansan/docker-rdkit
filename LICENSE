@@ -1,6 +1,8 @@
 The MIT License
 
-Copyright 2018 Matt Swain
+Copyright for portions of project jvansan/docker-rdkit are held by Matt Swain, 
+2018 as part of project mcs07/docker-rdkit. All other copyright for project
+jvansan/docker-rdkitare held by Jeffrey van Santen, 2021.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

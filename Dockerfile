@@ -1,5 +1,7 @@
-FROM debian:buster-slim AS rdkit-build-env
+FROM ubuntu:20.04 AS rdkit-build-env
 
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=America/Vancouver
 RUN apt-get update \
  && apt-get install -yq --no-install-recommends \
     ca-certificates \
@@ -20,7 +22,7 @@ RUN apt-get update \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-ARG RDKIT_VERSION=Release_2020_03_2
+ARG RDKIT_VERSION=Release_2020_09_4
 RUN wget --quiet https://github.com/rdkit/rdkit/archive/${RDKIT_VERSION}.tar.gz \
  && tar -xzf ${RDKIT_VERSION}.tar.gz \
  && mv rdkit-${RDKIT_VERSION} rdkit \
@@ -46,20 +48,22 @@ RUN cmake -Wno-dev \
 RUN make -j $(nproc) \
  && make install
 
-FROM debian:buster-slim AS rdkit-env
+FROM ubuntu:20.04 AS rdkit-env
 
 # Install runtime dependencies
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=America/Vancouver
 RUN apt-get update \
  && apt-get install -yq --no-install-recommends \
-    libboost-atomic1.67.0 \
-    libboost-chrono1.67.0 \
-    libboost-date-time1.67.0 \
-    libboost-iostreams1.67.0 \
-    libboost-python1.67.0 \
-    libboost-regex1.67.0 \
-    libboost-serialization1.67.0 \
-    libboost-system1.67.0 \
-    libboost-thread1.67.0 \
+    libboost-atomic1.71.0 \
+    libboost-chrono1.71.0 \
+    libboost-date-time1.71.0 \
+    libboost-iostreams1.71.0 \
+    libboost-python1.71.0 \
+    libboost-regex1.71.0 \
+    libboost-serialization1.71.0 \
+    libboost-system1.71.0 \
+    libboost-thread1.71.0 \
     libcairo2-dev \
     python3-dev \
     python3-numpy \
